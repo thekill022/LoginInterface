@@ -16,9 +16,6 @@ class _RegisterState extends State<Register> {
   TextEditingController _confirm = TextEditingController();
   TextEditingController _fisrtname = TextEditingController();
   TextEditingController _lastname = TextEditingController();
-  TextEditingController _age = TextEditingController();
-  TextEditingController _kelamin = TextEditingController();
-  TextEditingController _diabet = TextEditingController();
   String helper = '';
   @override
   void dispose() {
@@ -27,9 +24,6 @@ class _RegisterState extends State<Register> {
     _confirm.dispose();
     _fisrtname.dispose();
     _lastname.dispose();
-    _age.dispose();
-    _diabet.dispose();
-    _kelamin.dispose();
     super.dispose();
   }
 
@@ -45,11 +39,8 @@ class _RegisterState extends State<Register> {
         await UserDetail(
           _fisrtname.text.trim(),
           _lastname.text.trim(),
-          int.parse(_age.text.trim()),
           _email.text.trim(),
-          _kelamin.text.trim(),
-          _diabet.text.trim(),
-          uid, // Pass the UID to UserDetail method
+          uid,
         );
       } on FirebaseAuthException catch (e) {
         setState(() {
@@ -75,9 +66,6 @@ class _RegisterState extends State<Register> {
     await FirebaseFirestore.instance.collection('users').doc(uid).set({
       'nama depan': fName,
       'nama belakang': Lname,
-      'Jenis Kelamin': Jkelamin,
-      'Jenis Diabetes': DiabetType,
-      'umur': age,
       'email': email
     });
   }
@@ -168,49 +156,8 @@ class _RegisterState extends State<Register> {
                                 controller: _lastname,
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsets.only(left: 40, right: 40, top: 20),
-                              child: Container(
-                                padding: EdgeInsets.only(left: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                        color: Colors.black, width: 0.7)),
-                                clipBehavior: Clip.antiAlias,
-                                child: DropdownMenu(
-                                  hintText: "Jenis Kelamin",
-                                  textStyle: TextStyle(color: Colors.black),
-                                  menuStyle: MenuStyle(
-                                      side: MaterialStatePropertyAll(
-                                          BorderSide.none)),
-                                  width: 310,
-                                  controller: _kelamin,
-                                  inputDecorationTheme: InputDecorationTheme(
-                                      border: InputBorder.none),
-                                  dropdownMenuEntries: [
-                                    DropdownMenuEntry(
-                                        value: "Laki - Laki",
-                                        label: "Laki - Laki"),
-                                    DropdownMenuEntry(
-                                        value: "Perempuan", label: "Perempuan"),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsets.only(left: 40, right: 40, top: 20),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    hintText: "Umur",
-                                    helperStyle: TextStyle(color: Colors.red)),
-                                controller: _age,
-                              ),
-                            ),
+                            
+                            
                             Padding(
                               padding:
                                   EdgeInsets.only(left: 40, right: 40, top: 20),
@@ -251,37 +198,7 @@ class _RegisterState extends State<Register> {
                                 obscureText: true,
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.only(left: 10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                      color: Colors.black, width: 0.7)),
-                              clipBehavior: Clip.antiAlias,
-                              child: DropdownMenu(
-                                controller: _diabet,
-                                hintText: "Jenis Diabetes",
-                                textStyle: TextStyle(color: Colors.black),
-                                menuStyle: MenuStyle(
-                                    side: MaterialStatePropertyAll(
-                                        BorderSide.none)),
-                                width: 310,
-                                inputDecorationTheme: InputDecorationTheme(
-                                    border: InputBorder.none),
-                                dropdownMenuEntries: [
-                                  DropdownMenuEntry(
-                                      value: "DM1", label: "Mellitus 1"),
-                                  DropdownMenuEntry(
-                                      value: "DM2", label: "Mellitus 2"),
-                                  DropdownMenuEntry(
-                                      value: "Gestasional",
-                                      label: "Gestasional"),
-                                  DropdownMenuEntry(
-                                      value: "belum tahu",
-                                      label: "Belum Mengetahui"),
-                                ],
-                              ),
-                            ),
+                            
                             Container(
                                 margin: EdgeInsets.only(
                                     left: 30, right: 30, top: 20, bottom: 10),
